@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liia ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      overflow: hidden;
+    }
+
+    .bg-hearts span {
+      position: absolute;
+      font-size: 20px;
+      animation: float 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes float {
+      from { transform: translateY(110vh); }
+      to { transform: translateY(-10vh); }
+    }
+
+    .card {
+      background: rgba(255,255,255,0.95);
+      padding: 25px 20px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      width: 90%;
+      max-width: 360px;
+      animation: heartbeat 1.5s infinite;
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    h1 {
+      color: #ff2f6e;
+      margin-bottom: 8px;
+      font-size: 26px;
+    }
+
+    #question {
+      font-size: 17px;
+      margin-bottom: 15px;
+      min-height: 22px;
+    }
+
+    img {
+      width: 170px;
+      border-radius: 18px;
+      margin-bottom: 12px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+    }
+
+    .buttons {
+      position: relative;
+      height: 75px;
+    }
+
+    button {
+      padding: 12px 22px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+      position: absolute;
+    }
+
+    #yesBtn {
+      background: #ff2f6e;
+      color: white;
+      left: 15%;
+      animation: glow 1.5s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 5px #ff2f6e; }
+      to { box-shadow: 0 0 18px #ff2f6e; }
+    }
+
+    #noBtn {
+      background: #eee;
+      left: 55%;
+    }
+
+    .confetti {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      animation: fall 3s linear forwards;
+      z-index: 10;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    .secret {
+      margin-top: 12px;
+      font-size: 15px;
+      color: #ff2f6e;
+      opacity: 0;
+      transition: 1s;
+    }
+
+    .secret.show {
+      opacity: 1;
+    }
+
+    .main-text {
+      font-size: 22px;
+      color: #ff2f6e;
+      margin-top: 10px;
+      margin-bottom: 8px;
+      font-weight: bold;
+      opacity: 0;
+      transition: 0.7s;
+    }
+
+    .main-text.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-hearts" id="bgHearts"></div>
+
+  <div class="card" id="card">
+    <h1>Liia ❤️</h1>
+    <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" alt="cute cat">
+    <p id="question"></p>
+
+    <div class="buttons">
+      <button id="yesBtn" onclick="yes()">Yes 💖</button>
+      <button id="noBtn">No 🙃</button>
+    </div>
+
+    <div class="main-text" id="mainText">DAAA</div>
+    <div class="secret" id="secret">
+      Every time I think of you, my heart does happy twirls. I love you, Liia ❤️
+    </div>
+  </div>
+
+  <script>
+    const text = "Will you be my Valentine? 💌";
+    let i = 0;
+    const q = document.getElementById("question");
+
+    function typeText() {
+      if (i < text.length) {
+        q.textContent += text.charAt(i);
+        i++;
+        setTimeout(typeText, 50);
+      }
+    }
+    typeText();
+
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+
+    noBtn.addEventListener("touchstart", moveNo);
+    noBtn.addEventListener("mouseenter", moveNo);
+
+    function moveNo() {
+      const x = Math.random() * 65;
+      const y = Math.random() * 40;
+      noBtn.style.left = x + "%";
+      noBtn.style.top = y + "px";
+    }
+
+    noBtn.addEventListener("click", () => {
+      const size = parseFloat(getComputedStyle(yesBtn).fontSize);
+      yesBtn.style.fontSize = (size + 5) + "px";
+      yesBtn.style.padding = "16px 34px";
+    });
+
+    function yes() {
+      // Show DAAA main text
+      const mainText = document.getElementById("mainText");
+      mainText.classList.add("show");
+
+      // Show secret message
+      const secret = document.getElementById("secret");
+      setTimeout(() => {
+        secret.classList.add("show");
+      }, 700);
+
+      // Confetti
+      confetti();
+    }
+
+    function confetti() {
+      for (let i = 0; i < 80; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.top = "-10px";
+        c.style.background = ["#ff2f6e", "#ffd1dc", "#fff", "#ff6fa1"][Math.floor(Math.random()*4)];
+        c.style.animationDuration = 2 + Math.random() * 2 + "s";
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 4000);
+      }
+    }
+
+    const bg = document.getElementById("bgHearts");
+    setInterval(() => {
+      const h = document.createElement("span");
+      h.textContent = "❤️";
+      h.style.left = Math.random() * 100 + "vw";
+      h.style.animationDuration = 4 + Math.random() * 4 + "s";
+      bg.appendChild(h);
+      setTimeout(() => h.remove(), 8000);
+    }, 400);
+  </script>
+
+</body>
+</html>
