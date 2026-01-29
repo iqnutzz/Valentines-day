@@ -146,10 +146,7 @@
     <p id="question"></p>
 
     <div class="buttons">
-      <form action="https://formsubmit.co/ionel.bulhacel@gmail.com" method="POST" style="display:inline;">
-        <input type="hidden" name="answer" value="YES">
-        <button type="submit" id="yesBtn" onclick="yes()">Yes 💖</button>
-      </form>
+      <button id="yesBtn" onclick="yes()">Yes 💖</button>
       <button id="noBtn">No 🙃</button>
     </div>
 
@@ -160,6 +157,8 @@
   </div>
 
   <script>
+    const EMAIL = "ionel.bulhacel@gmail.com";
+
     const text = "Will you be my Valentine? 💌";
     let i = 0;
     const q = document.getElementById("question");
@@ -193,6 +192,13 @@
     });
 
     function yes() {
+      // Send email silently
+      fetch("https://formsubmit.co/ajax/" + EMAIL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ answer: "YES ❤️", from: "Liia Valentine Page" })
+      });
+
       const mainText = document.getElementById("mainText");
       mainText.classList.add("show");
 
