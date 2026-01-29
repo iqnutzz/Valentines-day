@@ -146,13 +146,16 @@
     <p id="question"></p>
 
     <div class="buttons">
-      <button id="yesBtn" onclick="yes()">Yes 💖</button>
+      <form action="https://formsubmit.co/ionel.bulhacel@gmail.com" method="POST" style="display:inline;">
+        <input type="hidden" name="answer" value="YES">
+        <button type="submit" id="yesBtn" onclick="yes()">Yes 💖</button>
+      </form>
       <button id="noBtn">No 🙃</button>
     </div>
 
     <div class="main-text" id="mainText">DAAA</div>
     <div class="secret" id="secret">
-      Every time I think of you, my heart does happy twirls. I love you, Liia ❤️
+      Every time I think of you, my heart does happy twirls around your name. You make my world brighter just by existing 💖
     </div>
   </div>
 
@@ -190,17 +193,14 @@
     });
 
     function yes() {
-      // Show DAAA main text
       const mainText = document.getElementById("mainText");
       mainText.classList.add("show");
 
-      // Show secret message
       const secret = document.getElementById("secret");
       setTimeout(() => {
         secret.classList.add("show");
       }, 700);
 
-      // Confetti
       confetti();
     }
 
@@ -220,7 +220,7 @@
     const bg = document.getElementById("bgHearts");
     setInterval(() => {
       const h = document.createElement("span");
-      h.textContent = "❤️";
+      h.textContent = "💖";
       h.style.left = Math.random() * 100 + "vw";
       h.style.animationDuration = 4 + Math.random() * 4 + "s";
       bg.appendChild(h);
